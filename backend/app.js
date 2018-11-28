@@ -20,7 +20,7 @@ app.use('/feed', feedRoutes);
 
 mongoose
 	.connect(
-		`mongodb+srv://marek:${process.env.MONGO_ATLAS_PWD}@cluster0-ewnnr.mongodb.net/test?retryWrites=true`,
+		`mongodb+srv://marek:${process.env.MONGO_ATLAS_PWD}@cluster0-ewnnr.mongodb.net/message?retryWrites=true`,
 	)
 	.then(result => {
 		app.listen(8080);
