@@ -11,20 +11,14 @@ const errorHandlingInPromiseCatch = (err, next) => {
 }
 
 exports.getPosts = (req, res, next) => {
-	res.json({
-		posts: [
-			{ 
-				_id: new Date().toISOString(),
-				title: 'My First Post', 
-				content: 'This is my first post.',
-				imageUrl: 'images/sample.jpg',
-				creator: {
-					name: 'Marek',
-				},
-				createdAt: new Date(),
-			},
-		]
-	});
+	Post
+		.find()
+		.then(posts => {
+			res.status(200).json({ posts });
+		})
+		.catch(err => {
+			errorHandlingInPromiseCatch(err, next);
+		});
 };
 
 exports.createPost = (req, res, next) => {
