@@ -22,7 +22,13 @@ const post = props => (
       <Button mode="flat" onClick={props.onStartEdit}>
         Edit
       </Button>
-      <Button mode="flat" design="danger" onClick={props.onDelete}>
+      <Button mode="flat" design="danger" 
+        onClick={e => {
+            e.preventDefault();
+            window.confirm("Are you sure you want to delete it?") && props.onDelete();
+          }
+        }
+      >
         Delete
       </Button>
     </div>
