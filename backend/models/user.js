@@ -7,7 +7,7 @@ const userSchema = new Schema({
 		required: true
 	}, 
 	password: {
-		type: Schema,
+		type: String,
 		required: true
 	},
 	name: {
@@ -15,7 +15,7 @@ const userSchema = new Schema({
 		required: true
 	},
 	status: {
-		type: string,
+		type: String,
 		required: true
 	},
 	posts: [
