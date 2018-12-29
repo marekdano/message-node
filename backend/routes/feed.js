@@ -7,18 +7,28 @@ const router = express.Router();
 
 router.get('/posts', isAuth, feedController.getPosts);
 
-router.post('/post', [
-	body('title').trim().isLength({ min: 8 }),
-	body('content').trim().isLength({ min: 5 }),
-], feedController.createPost);
+router.post(
+	'/post', 
+	isAuth,
+	[
+		body('title').trim().isLength({ min: 8 }),
+		body('content').trim().isLength({ min: 5 }),
+	], 
+	feedController.createPost
+);
 
-router.get('/post/:id', feedController.getPost);
+router.get('/post/:id', isAuth, feedController.getPost);
 
-router.put('/post/:id', [
-	body('title').trim().isLength({ min: 8 }),
-	body('content').trim().isLength({ min: 5 }),
-], feedController.updatePost);
+router.put(
+	'/post/:id', 
+	isAuth,
+	[
+		body('title').trim().isLength({ min: 8 }),
+		body('content').trim().isLength({ min: 5 }),
+	], 
+	feedController.updatePost
+);
 
-router.delete('/post/:id', feedController.deletePost);
+router.delete('/post/:id', isAuth, feedController.deletePost);
 
 module.exports = router;
