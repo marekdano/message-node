@@ -155,15 +155,28 @@ exports.deletePost = (req,res, next) => {
 	Post.findById(id)
 		.then(post => {
 			if (!post) {
-				const error = new Error('Coul not find post.');
+				const error = new Error('Could not find post.');
 				error.statusCode = 404;
 				throw error;
 			}
+			if (post.creator.toString() !== req.userId) {
+				const error = new Error('Not authorized!');
+				error.statusCode = 403;
+				throw error;
+			}
+			// check logged in user
 			clearImage(post.imageUrl);
 			return Post.findByIdAndRemove(id);
 		})
 		.then(result => {
-			console.log(result);
+			return User.findById(req.userId);
+		})
+		.then(user => {
+			// remove a post from a user's posts
+			user.posts.pull(postId);
+			return user.save();
+		})
+		.then(result => {
 			res.status(200).json({ message: 'Post has been deleted.' });
 		})
 		.catch(err => {
