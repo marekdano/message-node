@@ -24,6 +24,7 @@ exports.getPosts = (req, res, next) => {
 		.then(count => {
 			totalItems = count;
 			return Post.find()
+				.populate('creator', 'name')
 				.skip((currentPage - 1) * perPage)
 				.limit(perPage)
 		})
@@ -89,6 +90,7 @@ exports.getPost = (req, res, next) => {
 	const id = req.params.id;
 	Post
 		.findById(id)
+		.populate('creator', 'name')
 		.then(post => {
 			if (!post) {
 				const error = new Error('Could not find post.');
