@@ -14,31 +14,24 @@ const errorHandlingInPromiseCatch = (err, next) => {
 	next(err);
 }
 
-exports.getPosts = (req, res, next) => {
+exports.getPosts = async(req, res, next) => {
 	const currentPage = req.query.page || 1;
 	const perPage = 2;
-	let totalItems;
-	Post
-		.find()
-		.countDocuments()
-		.then(count => {
-			totalItems = count;
-			return Post.find()
-				.populate('creator', 'name')
-				.skip((currentPage - 1) * perPage)
-				.limit(perPage)
+	try {
+		const totalItems = await Post.find().countDocuments();
+		const posts = await Post
+			.find()
+			.populate('creator', 'name')
+			.skip((currentPage - 1) * perPage)
+			.limit(perPage);
+		
+		res.status(200).json({
+			posts,
+			totalItems
 		})
-		.then(posts => {
-			res
-				.status(200)
-				.json({ 
-					posts,
-					totalItems
-				});
-		})
-		.catch(err => {
-			errorHandlingInPromiseCatch(err, next);
-		});
+	} catch (err) {
+		errorHandlingInPromiseCatch(err, next);
+	}
 };
 
 exports.createPost = (req, res, next) => {
@@ -86,22 +79,20 @@ exports.createPost = (req, res, next) => {
 		});
 };
 
-exports.getPost = (req, res, next) => {
+exports.getPost = async(req, res, next) => {
 	const id = req.params.id;
-	Post
-		.findById(id)
-		.populate('creator', 'name')
-		.then(post => {
-			if (!post) {
-				const error = new Error('Could not find post.');
-				error.statusCode = 404;
-				throw error;
-			}
-			res.status(200).json({ post });
-		})
-		.catch(error => {
-			errorHandlingInPromiseCatch(error, next);
-		})
+
+	try {
+		const post = await Post.findById(id).populate('creator', 'name');
+		if (!post) {
+			const error = new Error('Could not find post.');
+			error.statusCode = 404;
+			throw error;
+		}
+		res.status(200).json({ post });
+	} catch (error) {
+		errorHandlingInPromiseCatch(error, next);
+	}
 }
 
 exports.updatePost = (req, res, next) => {
