@@ -81,8 +81,24 @@ exports.getUserStatus = async(req, res, next) => {
 			err.statusCode = 500;
 		}
 		next(err);
-	} 
+	}
+}
 
+exports.updateUserStatus = async(req, res, next) =>{
+	try {
+		const user = await User.findById(req.userId);
+		handleUserNotExist(user);
+
+		user.status = req.body.status;
+		const savedUser = await user.save();
+
+		res.status(200).json({ message: 'User status updated.' });
+	} catch (err) {
+		if (!err.statusCode) {
+			err.statusCode = 500;
+		}
+		next(err);
+	}
 }
 
 // PRIVATE
