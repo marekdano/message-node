@@ -24,9 +24,9 @@ const post = props => (
       </Button>
       <Button mode="flat" design="danger" 
         onClick={e => {
-            e.preventDefault();
-            window.confirm("Are you sure you want to delete it?") && props.onDelete();
-          }
+          e.preventDefault();
+          window.confirm('Are you sure you want to delete it?') && props.onDelete();
+        }
         }
       >
         Delete

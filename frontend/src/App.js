@@ -123,7 +123,7 @@ class App extends Component {
       .then(res => {
         if (res.status === 422) {
           throw new Error(
-            "Validation failed. Make sure the email address isn't used yet!"
+            'Validation failed. Make sure the email address isn\'t used yet!'
           );
         }
         if (res.status !== 200 && res.status !== 201) {
@@ -191,7 +191,7 @@ class App extends Component {
           <Route
             path="/"
             exact
-            render={props => (
+            render={() => (
               <FeedPage userId={this.state.userId} token={this.state.token} />
             )}
           />

@@ -69,7 +69,7 @@ class FeedEdit extends Component {
         .then(b64 => {
           this.setState({ imagePreview: b64 });
         })
-        .catch(e => {
+        .catch(() => {
           this.setState({ imagePreview: null });
         });
     }
