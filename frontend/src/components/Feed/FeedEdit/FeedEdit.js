@@ -5,8 +5,8 @@ import Modal from '../../Modal/Modal';
 import Input from '../../Form/Input/Input';
 import FilePicker from '../../Form/Input/FilePicker';
 import Image from '../../Image/Image';
-import { required, length } from '../../../util/validators';
-import { generateBase64FromImage } from '../../../util/image';
+import { required, length } from '../../../utils/validators';
+import { generateBase64FromImage } from '../../../utils/image';
 
 const POST_FORM = {
   title: {
