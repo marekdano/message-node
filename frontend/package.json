@@ -50,9 +50,11 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "jest --watchAll --coverage",
-    "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "test": "is-ci \"test:coverage\" \"test:watch\"",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch",
+    "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --watch"
   },
   "browserslist": [
     ">0.2%",
@@ -116,6 +118,7 @@
     "eslint-plugin-import": "2.14.0",
     "eslint-plugin-jsx-a11y": "6.1.2",
     "eslint-plugin-react": "7.11.1",
+    "is-ci-cli": "^1.1.1",
     "prettier": "^1.16.4"
   }
 }
