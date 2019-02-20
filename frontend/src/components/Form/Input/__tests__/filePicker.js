@@ -4,12 +4,18 @@ import ReactDOM from 'react-dom';
 import {getQueriesForElement} from 'dom-testing-library';
 import FilePicker from '../FilePicker';
 
+function render(ui) {
+  const container = document.createElement('div');
+  ReactDOM.render(ui, container);
+  const queries = getQueriesForElement(container);
+  return {
+    container,
+    ...queries
+  };
+}
+
 test('renders a number input with a label "File"', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<FilePicker id={1} label={'File'}/>, div);
-  // expect(div.querySelector('input')).toHaveAttribute('type', 'file');
-  // expect(div.querySelector('label')).toHaveTextContent('File');
-  const {getByLabelText} = getQueriesForElement(div);
+  const {getByLabelText} = render(<FilePicker id={1} label={'File'}/>);
   const input = getByLabelText(/file/i);
   expect(input).toHaveAttribute('type', 'file');
 });
