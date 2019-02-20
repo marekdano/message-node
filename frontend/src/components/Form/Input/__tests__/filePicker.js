@@ -1,18 +1,7 @@
 import 'jest-dom/extend-expect';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {getQueriesForElement} from 'dom-testing-library';
+import {render} from 'react-testing-library';
 import FilePicker from '../FilePicker';
-
-function render(ui) {
-  const container = document.createElement('div');
-  ReactDOM.render(ui, container);
-  const queries = getQueriesForElement(container);
-  return {
-    container,
-    ...queries
-  };
-}
 
 test('renders a number input with a label "File"', () => {
   const {getByLabelText} = render(<FilePicker id={1} label={'File'}/>);
