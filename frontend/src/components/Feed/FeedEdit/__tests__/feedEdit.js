@@ -9,7 +9,7 @@ import FeedEdit from '../FeedEdit';
 
 // expect.extend(toHaveNoViolations);
 
-// mock console error to remove (delete) them in the tests result
+// mock console error to not display errors in the console where tests run
 beforeEach(() => {
   jest.spyOn(console, 'error').mockImplementation(() => {});
 });
