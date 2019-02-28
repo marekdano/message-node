@@ -37,6 +37,7 @@ export default class Backdrop extends React.Component {
     return ReactDOM.createPortal(
       <div
         className={['backdrop', this.props.open ? 'open' : ''].join(' ')}
+        data-testid="backdrop"
         onClick={this.props.onClick}
       />,
       this.el
