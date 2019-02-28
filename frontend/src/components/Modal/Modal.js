@@ -49,7 +49,7 @@ export default class Modal extends Component {
     return ReactDOM.createPortal(
       <div className="modal">
         <header className="modal__header">
-          <h1>{this.props.title}</h1>
+          <h1>{props.title}</h1>
         </header>
         <div className="modal__content">{props.children}</div>
         <div className="modal__actions">
