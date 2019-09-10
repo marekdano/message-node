@@ -60,11 +60,11 @@ app.use((error, req, res, next) => {
 mongoose
 	.connect(
 		`mongodb+srv://marek:${process.env.MONGO_ATLAS_PWD}@cluster0-ewnnr.mongodb.net/message?retryWrites=true`,
-		{ useNewUrlParser: true }
+		{ useNewUrlParser: true, useUnifiedTopology: true }
 	)
 	.then(result => {
 		app.listen(8080);
 	})
-	.catch(err => console.log(err));
+	.catch(err => console.warn(err));
 
 
